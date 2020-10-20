@@ -1,0 +1,108 @@
+阿里云服务器地址（华东2） :  *.iot-as-mqtt.cn-shanghai.aliyuncs.com:1883    *表示自己账号的ProductKey注意替换
+hmacsha1加密在线计算网站：http://encode.chahuo.com/ 
+
+测试:  
+一、开发板模拟测试:
+kfb_demo:
+{
+  "ProductKey": "a1Tc0i2BCtn",
+  "DeviceName": "kfb_demo",
+  "DeviceSecret": "UN1kFJtkZqA8fY98FiGriXJlMfvyFmGX"
+}
+
+服务器地址： a1Tc0i2BCtn.iot-as-mqtt.cn-shanghai.aliyuncs.com:1883
+
+客户端ID ：  kfb_demo|securemode=3,signmethod=hmacsha1|                                                 
+用户名   ：  kfb_demo&a1Tc0i2BCtn                                                                                               
+密码     ：  977879e47f191ef6ec834b5c7ead1128018ee101
+
+用 UN1kFJtkZqA8fY98FiGriXJlMfvyFmGX 做为秘钥对 clientIdkfb_demodeviceNamekfb_demoproductKeya1Tc0i2BCtn 进行hmacsha1加密后的结果      
+
+
+1、连接阿里云(CONNECT(1)): 
+格式: 固定报头+可变报头+负载 
+     
+10 76 00 04 4D 51 54 54 04 C2 00 78 
+00 2A 6B 66 62 5F 64 65 6D 6F 7C 73 65 63 75 72 65 6D 6F 64 65 3D 33 2C 73 69 67 6E 6D 65 74 68 6F 64 3D 68 6D 61 63 73 68 61 31 7C
+00 14 6B 66 62 5F 64 65 6D 6F 26 61 31 54 63 30 69 32 42 43 74 6E 
+00 28 39 37 37 38 37 39 65 34 37 66 31 39 31 65 66 36 65 63 38 33 34 62 35 63 37 65 61 64 31 31 32 38 30 31 38 65 65 31 30 31
+
+发送连接请求:
+连接成功收到回复 : 20 02 00 00 
+
+
+2、订阅topic主题s_data(SUBSCRIBE(8)):    /a1Tc0i2BCtn/kfb_demo/user/s_data    
+等级0
+82 26 00 0A 00 21 2F 61 31 54 63 30 69 32 42 43 74 6E 2F 6B 66 62 5F 64 65 6D 6F 2F 75 73 65 72 2F 73 5F 64 61 74 61 00
+
+回复: 90 03 0A 01
+
+等级1
+82 26 00 0A 00 21 2F 61 31 54 63 30 69 32 42 43 74 6E 2F 6B 66 62 5F 64 65 6D 6F 2F 75 73 65 72 2F 73 5F 64 61 74 61 01
+
+
+
+3、发布topic主机p_data(PUBLISH(3)):      /a1Tc0i2BCtn/kfb_demo/user/p_data
+等级0  数据: 321
+30 27 00 21 2F 61 31 54 63 30 69 32 42 43 74 6E 2F 6B 66 62 5F 64 65 6D 6F 2F 75 73 65 72 2F 70 5F 64 61 74 61 33 33 33 33       
+等级0: 不回复
+
+等级1  数据: 321
+32 29 00 21 2F 61 31 54 63 30 69 32 42 43 74 6E 2F 6B 66 62 5F 64 65 6D 6F 2F 75 73 65 72 2F 73 5F 64 61 74 61 00 01 31 32 33 32  
+
+
+二、APP模拟测试
+
+app_demo:
+{
+  "ProductKey": "a1Tc0i2BCtn",
+  "DeviceName": "app_demo",
+  "DeviceSecret": "8VILDAzOVn2gaktLROq8xgnxe0wv7MpP"
+}
+
+
+服务器地址： a1Tc0i2BCtn.iot-as-mqtt.cn-shanghai.aliyuncs.com:1883
+
+客户端ID ：  app_demo|securemode=3,signmethod=hmacsha1|                                                 
+用户名   ：  app_demo&a1Tc0i2BCtn                                                                                               
+密码     ：  8b9c2fcdf68fe1aba93f1f01165d9e04ca3f01eb
+
+用 8VILDAzOVn2gaktLROq8xgnxe0wv7MpP 做为秘钥对 clientIdapp_demodeviceNameapp_demoproductKeya1Tc0i2BCtn 进行hmacsha1加密后的结果      
+
+
+1、连接阿里云(CONNECT(1)): 
+格式: 固定报头+可变报头+负载 
+     
+10 76 00 04 4D 51 54 54 04 C2 00 78 00 2A 61 70 70 5F 64 65 6D 6F 7C 73 65 63 75 72 65 6D 6F 64 65 3D 33 2C 73 69 67 6E 6D 65 74 68 6F 64 3D 68 6D 61 63 73 68 61 31 7C 00 14 61 70 70 5F 64 65 6D 6F 26 61 31 54 63 30 69 32 42 43 74 6E 00 28 38 62 39 63 32 66 63 64 66 36 38 66 65 31 61 62 61 39 33 66 31 66 30 31 31 36 35 64 39 65 30 34 63 61 33 66 30 31 65 62
+
+发送连接请求:
+连接成功收到回复 : 20 02 00 00 
+
+
+2、订阅topic主题(SUBSCRIBE(8)):         /a1Tc0i2BCtn/app_demo/user/s_data
+等级0
+82 26 00 0A 00 21 2F 61 31 54 63 30 69 32 42 43 74 6E 2F 61 70 70 5F 64 65 6D 6F 2F 75 73 65 72 2F 73 5F 64 61 74 61 00    
+
+等级1
+82 26 00 0A 00 21 2F 61 31 54 63 30 69 32 42 43 74 6E 2F 61 70 70 5F 64 65 6D 6F 2F 75 73 65 72 2F 73 5F 64 61 74 61 01      
+
+
+3、发布topic主机p_data(PUBLISH(3)):      /a1Tc0i2BCtn/app_demo/user/p_data
+等级0  数据: APP+OneSW=C
+30 2E 00 21 2F 61 31 54 63 30 69 32 42 43 74 6E 2F 61 70 70 5F 64 65 6D 6F 2F 75 73 65 72 2F 70 5F 64 61 74 61 41 50 50 2B 4F 6E 65 53 57 3D 43  
+等级0  数据: APP+OneSW=?
+30 2E 00 21 2F 61 31 54 63 30 69 32 42 43 74 6E 2F 61 70 70 5F 64 65 6D 6F 2F 75 73 65 72 2F 70 5F 64 61 74 61 41 50 50 2B 4F 6E 65 53 57 3D 3F
+等级0  数据: APP+OneSWCD
+30 2E 00 21 2F 61 31 54 63 30 69 32 42 43 74 6E 2F 61 70 70 5F 64 65 6D 6F 2F 75 73 65 72 2F 70 5F 64 61 74 61 41 50 50 2B 4F 6E 65 53 57 43 44 
+
+
+等级1  数据: 3212
+32 29 00 21 2F 61 31 54 63 30 69 32 42 43 74 6E 2F 61 70 70 5F 64 65 6D 6F 2F 75 73 65 72 2F 70 5F 64 61 74 61 00 01 33 32 31 32 
+
+
+
+ESP8266 AT连接服务器
+
+AT+CIPMODE=1
+AT+CIPSTART="TCP","a1Tc0i2BCtn.iot-as-mqtt.cn-shanghai.aliyuncs.com",1883
+AT+CIPSEND
